@@ -27,6 +27,7 @@
     "enzyme-adapter-react-16": "^1.14.0",
     "eslint": "^5.16.0",
     "eslint-plugin-react": "^7.13.0",
+    "eslint-plugin-react-hooks": "^1.6.1",
     "http-parser-js": "^0.5.1",
     "node-sass": "^4.12.0",
     "react-addons-test-utils": "^15.6.2",

@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useEffect, useState} from "react"
 import { connect } from "react-redux"
 import { Route, Switch, withRouter } from 'react-router-dom';
 
@@ -8,27 +8,30 @@ import { LoginComponent } from "./components/login/login"
 
 import {login} from "skiutactions"
 
-
 import "css/container.scss"
 
-class AppComp extends React.Component {
-    componentDidMount() {
+function AppComp(props) {
+
+    useEffect(() => {
         //Calls skiutcserver
-        this.props.login()
-    }
-    render(){
-        return(
-                <Switch className="fullWidth fullHeight">
-                    <Route path="/shotgun" component={Shotgun}/>
-                    <Route path="/login" component={LoginComponent}/>
-                    <Route path="/" component={Accueil}/>
-                </Switch>
-        )
-    }
+        props.login()
+    },[])
+    useEffect(()=> {
+
+    },[])
+
+    return(
+        <Switch className="fullWidth fullHeight">
+            <Route path="/shotgun" component={Shotgun}/>
+            <Route path="/login" component={LoginComponent}/>
+            <Route path="/" component={Accueil}/>
+        </Switch>
+    )
 }
 
 const mapStateToProps = (state) => {
     return {
+        ticket: state["LOGIN"]["data"].ticket
     }
 }
 
