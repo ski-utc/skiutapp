@@ -1,5 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   entry: [
@@ -7,7 +8,7 @@ module.exports = {
     "./src/skiutc.js"
   ],
   output: {
-    path: __dirname + "/webdocs",
+    path: __dirname + "/public_html",
     publicPath: "/",
     filename: "[name].min.js",
     chunkFilename: "[name].min.js"
@@ -29,6 +30,10 @@ module.exports = {
         use: ['style-loader', 'css-loader', 'sass-loader']
       },
       {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        loader: "file-loader"
+      },
+      {
         test: /\.(png|svg|jpg)$/i,
         use:[{
           loader: "url-loader",
@@ -47,10 +52,14 @@ module.exports = {
     extensions: [".js", ".json", ".jsx", ".css"]
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new HtmlWebpackPlugin({
+      filename: "skiutc.html",
+      template: "public_html/skiutc_template.html"
+    })
   ],
   devServer: {
-    contentBase: "./webdocs",
+    contentBase: "./public_html",
     hot: true
   },
   target: "web",

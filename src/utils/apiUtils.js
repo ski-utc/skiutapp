@@ -99,7 +99,7 @@ export const callApi = (endpoint, apiKey, method='GET', body=undefined, options=
     let headers, sBody
 
     headers = {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
     }
     sBody = JSON.stringify(body);
 
@@ -118,6 +118,20 @@ export const callApi = (endpoint, apiKey, method='GET', body=undefined, options=
     }
 }
 
+export function apiAuthMiddleware() {
+    return function(next) {
+        return function(action) {
+            const callApi = action[RSAA]
+            if (callApi) {
+                callApi.headers = Object.assign({}, callApi.headers, {
+                    Authorization: localStorage.getItem('token') || '',
+                })
+            }
+            // Pass the FSA to the next action.
+            return next(action)
+        }
+    }
+}
 
 /**
  * @function cleanApiData - clean des datas pour une key donnée
